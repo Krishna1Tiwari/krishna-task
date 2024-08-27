@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useContext } from 'react';
+import { QuizProvider, QuizContext } from './components/context/QuizContext';
+import Quiz from './components/Quiz';
+import ScoreScreen from './components/ScoreScreen';
+import { CssBaseline, Container } from '@mui/material';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+    const { completed } = useContext(QuizContext);
 
-export default App;
+    return (<>
+     <Container>
+            <CssBaseline />
+            {completed ? <ScoreScreen /> : <Quiz />}
+        </Container>
+    
+    </>
+       
+    );
+};
+
+const AppWrapper = () => (
+    <QuizProvider>
+        <App />
+    </QuizProvider>
+);
+
+export default AppWrapper;
